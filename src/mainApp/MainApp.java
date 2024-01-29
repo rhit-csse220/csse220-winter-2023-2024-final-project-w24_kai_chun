@@ -23,6 +23,7 @@ public class MainApp {
 		mainApp.runApp();		
 	    System.out.println("add print statement");
 	    System.out.println("crazy");
+	    System.out.println();
 	} // main
 
 }
