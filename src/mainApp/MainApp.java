@@ -25,7 +25,7 @@ public class MainApp {
 	    System.out.println("crazy");
 	    System.out.println();
 	    System.out.println("try");
-	    System.out.println("tuu");
+	    System.out.println("t");
 	} // main
 
 }
