@@ -22,6 +22,10 @@ public class MainApp {
 		MainApp mainApp = new MainApp();
 		mainApp.runApp();		
 	    System.out.println("add print statement");
+	    System.out.println("crazy");
+	    System.out.println();
+	    System.out.println("try");
+	    System.out.println("t");
 	} // main
 
 }
