@@ -26,10 +26,11 @@ public class GameViewer {
 
 	public static void main(String[] args) {
 		GameViewer GameViewer = new GameViewer();
-		GameViewer.main();
-		
 		GameComponent gamecomponet = new GameComponent();
 		gamecomponet.repaint();
+		GameViewer.main();
+		
+		
 //		LevelLoader loader = new LevelLoader();
 //		try {
 //			char[][] level = loader.loadLevel("Level1.txt");
