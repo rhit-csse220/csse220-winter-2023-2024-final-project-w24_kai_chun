@@ -19,8 +19,8 @@ public class GameComponent extends JComponent {
             BufferedImage originalImg = ImageIO.read(new File("Mario.png"));
  
             // Desired new dimensions
-            int newWidth = originalImg.getWidth() / 5+20; // Example: scale to half the original width
-            int newHeight = originalImg.getHeight() / 5+20; // Example: scale to half the original height
+            int newWidth = 16*3; // Example: scale to half the original width
+            int newHeight = 16*3; // Example: scale to half the original height
  
             // Create a new image with the desired dimensions
             BufferedImage scaledImg = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);

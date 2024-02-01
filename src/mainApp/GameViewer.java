@@ -14,7 +14,7 @@ public class GameViewer {
 		frame.setTitle("The Best Game in The World");
 		frame.setLocation(-10, 0);
 		frame.setResizable(false);
-		frame.setSize(1550, 920);
+		frame.setSize(1600, 920);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ImageIcon img = new ImageIcon("Jetpack-Joyride.jpg");
 		frame.setIconImage(img.getImage());
