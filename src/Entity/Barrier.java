@@ -24,7 +24,7 @@ public class Barrier extends Entity {
 	public void getPipeImage()
 	{
 		try {
-			System.out.println("Pipe");
+//			System.out.println("Pipe");
 			image = ImageIO.read(getClass().getResourceAsStream("MarioPipe.png"));
 		} catch(IOException e) {
 			e.printStackTrace();

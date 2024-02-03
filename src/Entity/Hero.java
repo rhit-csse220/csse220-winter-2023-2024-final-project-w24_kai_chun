@@ -34,7 +34,6 @@ public class Hero extends Entity {
 	public void getHeroImage()
 	{
 		try {
-			System.out.println("ter");
 			image = ImageIO.read(getClass().getResourceAsStream("Mario-removebg-preview.png"));
 		} catch(IOException e) {
 			e.printStackTrace();

@@ -15,7 +15,7 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		Panel panel = new Panel();
-		panel.loadfile(1);
+		panel.loadfile(2);
 		frame.add(panel);
 		
 		frame.pack();

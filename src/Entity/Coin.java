@@ -22,7 +22,7 @@ public class Coin extends Entity{
 	public void getCoinImage()
 	{
 		try {
-			System.out.println("coin");
+//			System.out.println("coin");
 			image = ImageIO.read(getClass().getResourceAsStream("MarioCoin-removebg-preview.png"));
 		} catch(IOException e) {
 			e.printStackTrace();
