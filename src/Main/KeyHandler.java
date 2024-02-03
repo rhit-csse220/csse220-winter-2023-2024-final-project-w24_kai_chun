@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener{
 	
 	public boolean upPressed;
-
+	public int level=1;
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -21,7 +21,15 @@ public class KeyHandler implements KeyListener{
 		{
 			upPressed = true;
 		}
-		
+		if(e.getKeyCode()==85) {
+//    		runApp(levelNumb+1);
+//			panel.loadfile(panel.getlevel());
+			level++;
+    	}
+    	if(e.getKeyCode()==68) {
+//    		runApp(levelNumb-1);
+    		level--;
+    	}
 	}
 
 	@Override

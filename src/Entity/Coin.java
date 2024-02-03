@@ -49,7 +49,7 @@ public class Coin extends Entity{
 	
 	}
 
-	public void disapper() {
+	public void disappear() {
 		this.disapper=true;
 	}
 

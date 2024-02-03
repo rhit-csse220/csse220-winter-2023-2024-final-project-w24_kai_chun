@@ -83,7 +83,6 @@ public class Panel extends JPanel implements Runnable {
 					e.printStackTrace();
 				}
 			}
-			System.out.println();
 		} catch (FileNotFoundException e) {
 			System.err.println("File " + filename + " not found.");
 		} catch (IOException e) {
@@ -200,9 +199,11 @@ public class Panel extends JPanel implements Runnable {
 	public void handleCollisions() {
 		for (Coin co : coins) {
 			if (co.collidewith(hero)) {
-				co.disapper();
+				co.disappear();
 			}
 		}
 	}
-
+	public int getlevel() {
+		return keyH.level;
+	}
 }
