@@ -10,14 +10,15 @@ import Main.Panel;
 public class Barrier extends Entity {
 	Panel p;
 	int angle;
-	public Barrier(Panel p, int x, int y)
+	public Barrier(Panel p, int x, int y, int angle)
 	{
 		this.x = x;
 		this.y = y;
 		this.p = p;
 		this.width=p.tileSize;
 		this.height=p.tileSize*3;
-		angle = 0;//(int) (Math.random()*46);
+		this.angle = angle;//(int) (Math.random()*46);
+		
 		getPipeImage();
 	}
 	

@@ -113,10 +113,10 @@ public class Panel extends JPanel implements Runnable {
 				coins.add(new Coin(this,x,y));
 				break;
 			case Barrier:
-				barriers.add(new Barrier(this,x,y));
+				barriers.add(new Barrier(this,x,y,angle));
 				break;
 			case ElectricBarrier:
-				electricBarriers.add(new ElectricBarrier(this,x,y));
+				electricBarriers.add(new ElectricBarrier(this,x,y,angle));
 			}
 			
 			

@@ -9,8 +9,8 @@ import Main.Panel;
 
 public class ElectricBarrier extends Barrier {
 
-	public ElectricBarrier(Panel p, int x, int y) {
-		super(p, x, y);
+	public ElectricBarrier(Panel p, int x, int y, int angle) {
+		super(p, x, y,angle);
 		this.width=p.tileSize*4;
 		this.height=p.tileSize;
 	}
