@@ -13,57 +13,50 @@ import Main.Panel;
 public class Hero extends Entity {
 	Panel p;
 	KeyHandler keyH;
-	
-	public Hero(Panel p, KeyHandler keyH)
-	{
+
+	public Hero(Panel p, KeyHandler keyH) {
 		this.p = p;
 		this.keyH = keyH;
-		this.width=p.tileSize;
-		this.height=p.tileSize;
+		this.width = p.tileSize;
+		this.height = p.tileSize;
 		setDefaultValues();
 		getHeroImage();
 	}
-	
-	public void setDefaultValues()
-	{
+
+	public void setDefaultValues() {
 		this.x = 10;
 		this.y = 500;
-		this.speed = 14;
+		this.speed = 8;
 	}
-	
-	public void getHeroImage()
-	{
+
+	public void getHeroImage() {
 		try {
 			image = ImageIO.read(getClass().getResourceAsStream("Mario-removebg-preview.png"));
-		} catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void update()
-	{               
-		if(keyH.upPressed == true && y>=0)
-		{
-			y -= speed;
-			
+
+	public void update() {
+		if (keyH.upPressed == true && y >= 0) {
+			y -= 8;
+
 		}
-		if(y<=576-48) {
-			y+=5;
+		if (y <= 576 - 48) {
+			y += 3;
 		}
-		
-		if(x >= 768-48)
-		{
-			x-= speed/7;
+
+		if (x >= 768 - 48) {
+			x -= speed / 3;
 		}
-		x += speed/7;
+		x += speed / 3;
 	}
-	
-	public void draw(Graphics2D g2)
-	{
+
+	public void draw(Graphics2D g2) {
 //		g2.setColor(Color.white);
 //		g2.fillRect(x, y, p.tileSize, p.tileSize);
 		g2.drawImage(image, x, y, this.width, this.height, null);
-		
+		g2.drawRect(x, y, this.width, this.height);
 	}
-	
+
 }

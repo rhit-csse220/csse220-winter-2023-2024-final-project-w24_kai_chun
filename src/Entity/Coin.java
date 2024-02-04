@@ -1,6 +1,7 @@
 package Entity;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -8,52 +9,39 @@ import javax.imageio.ImageIO;
 import Main.KeyHandler;
 import Main.Panel;
 
-public class Coin extends Entity{
+public class Coin extends Entity {
 	Panel p;
-	
-	public Coin(Panel p, int x, int y)
-	{
+
+	public Coin(Panel p, int x, int y) {
 		this.x = x;
 		this.y = y;
 		this.p = p;
+		this.width = 20;
+		this.height = 20;
 		getCoinImage();
 	}
-	
-	public void getCoinImage()
-	{
+
+	public void getCoinImage() {
 		try {
 //			System.out.println("coin");
 			image = ImageIO.read(getClass().getResourceAsStream("MarioCoin-removebg-preview.png"));
-		} catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void update()
-	{
-//		if(keyH.upPressed == true && y>=0)
-//		{
-//			y -= speed;
-//			
-//		}
-//		if(y<=576-48) {
-//			y+=5;
-//		}
-	}
-	
-	public void draw(Graphics2D g2)
-	{
+
+	public void draw(Graphics2D g2) {
 //		g2.setColor(Color.white);
 //		g2.fillRect(x, y, p.tileSize, p.tileSize);
-		g2.drawImage(image, x, y, p.tileSize/2, p.tileSize/2, null);
-	
+		if (this.collision == false) {
+			g2.drawImage(image, x, y, p.tileSize / 2, p.tileSize / 2, null);
+		}else {
+			
+		}
 	}
 
-	public void disappear() {
-		this.disapper=true;
-	}
+//	public boolean collideWithHero(Hero hero) {
+//		return false;
+//	}
 
-	public boolean collideWithHero(Hero hero) {
- 		return false;
-	}
 }
