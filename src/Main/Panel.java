@@ -257,16 +257,16 @@ public class Panel extends JPanel implements Runnable {
 				co.disappear();
 			}
 		}
-		for(Barrier barrier : barriers) {
-			if (barrier.collidewith(hero)) {
-				barrier.disappear();
-			}
-		}
-		for(Barrier eleCtricBarrier : electricBarriers) {
-			if ( eleCtricBarrier.collidewith(hero)) {
-				 eleCtricBarrier.disappear();
-			}
-		}
+//		for(Barrier barrier : barriers) {
+//			if (barrier.collidewith(hero)) {
+//				barrier.disappear();
+//			}
+//		}
+//		for(Barrier eleCtricBarrier : electricBarriers) {
+//			if ( eleCtricBarrier.collidewith(hero)) {
+//				 eleCtricBarrier.disappear();
+//			}
+//		}
 	}
 
 	public int getlevel() {
