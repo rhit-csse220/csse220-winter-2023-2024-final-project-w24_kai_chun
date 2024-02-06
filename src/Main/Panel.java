@@ -36,14 +36,16 @@ public class Panel extends JPanel implements Runnable {
 	private static final int TrackMissile = 5;
 	final int originalTileSize = 16;
 	final int scale = 3;
-
+	private int countCoins = 0;
+	private int countLevel = 1;
+	private int countLifes = 3;
 	public final int tileSize = originalTileSize * scale;
 	final int maxScreenCol = 16;
 	final int maxScreenRow = 12;
 	final int screenWidth = tileSize * maxScreenCol;// 768 px
 	final int screenHeight = tileSize * maxScreenRow;// 576 px
 	boolean gameOver;
-	
+
 	int FPS = 60;
 	KeyHandler keyH = new KeyHandler();
 	Thread gameThread;
@@ -143,6 +145,40 @@ public class Panel extends JPanel implements Runnable {
 
 		while (gameThread != null) {
 
+			for (int i = 0; i < coins.size(); i++) {
+				Coin coin = coins.get(i);
+				if (coin.collidewith(hero)) {
+					coins.remove(i);
+					countCoins++;
+					i--;
+				}
+				coin.update();
+			}
+
+			for (int i = 0; i < missiles.size(); i++) {
+				Missile missile = missiles.get(i);
+				if (missile.collidewith(hero)) {
+					missiles.remove(i);
+					countLifes--;
+					i--;
+				}
+				missile.move();
+			}
+			for (int i = 0; i < trackMissiles.size(); i++) {
+				TrackMissile trackMissile = trackMissiles.get(i);
+				if (trackMissile.collidewith(hero)) {
+					trackMissiles.remove(i);
+					countLifes--;
+					i--;
+				}
+				trackMissile.move();
+				if (trackMissile.y < hero.y) {
+					trackMissile.moveup();
+				} else {
+					trackMissile.movedown();
+				}
+			}
+
 			update();
 			repaint();
 
@@ -172,17 +208,29 @@ public class Panel extends JPanel implements Runnable {
 
 		Graphics2D g2 = (Graphics2D) g;
 		hero.draw(g2);
-			
-		for (Coin co : coins) {
-			if (co.ifcollision()) {
-//				g2.setColor(Color.black);
-//				g2.fillRect(co.getX(), co.getY(), co.getWidth(), co.getHeight());
-			} else {
-				co.update();
-				co.draw(g2);
-				
-			}
+		g2.setColor(Color.BLUE);
+		g2.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+		g2.drawString("Level: " + countLevel, 10, 20);
+		String liv = "Lives: " + countLifes;
+		g2.drawString(liv, 100, 20);
+		g2.setColor(Color.yellow);
+		g2.drawString("Coins: " + countCoins, 190, 20);
+		g2.setColor(Color.black);
+//		for (Coin co : coins) {
+//			if (co.collidewith(hero)) {
+////				g2.setColor(Color.black);
+////				g2.fillRect(co.getX(), co.getY(), co.getWidth(), co.getHeight());
+//				countCoins++;
+//			} else {
+//				co.update();
+//				co.draw(g2);
+//				
+//			}
+//		}
+		for (Coin coin : coins) {
+			coin.draw(g2);
 		}
+
 		for (Barrier barrier : barriers) {
 			if (barrier.ifcollision()) {
 //				hero.speed=0;
@@ -191,59 +239,60 @@ public class Panel extends JPanel implements Runnable {
 			} else {
 				barrier.update();
 				barrier.draw(g2);
-				
+
 			}
 		}
-		
-		
+
 		for (ElectricBarrier ele : electricBarriers) {
 			if (ele.ifcollision()) {
 				g2.setColor(Color.red);
-				g2.setFont(new Font("MV Boli",Font.PLAIN,45));
-				g2.drawString("Game Over!",150,100);
-				//stop a little bit
-				try {
-					Thread.sleep(3000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				g2.setFont(new Font("MV Boli", Font.PLAIN, 45));
+				g2.drawString("Game Over!", 150, 100);
+				g2.setColor(Color.BLACK);
+				// stop a little bit
+//				try {
+//					Thread.sleep(3000);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 //				this.loadfile(1);
-				hero.x=10;
-				hero.y=500;
+//				hero.x=10;
+//				hero.y=500;
 //				ele.resetcollision();
-//				ele.update();
-//				ele.draw(g2);
+				ele.update();
+				ele.draw(g2);
 			} else {
 				ele.update();
 				ele.draw(g2);
-				
 
 			}
 		}
 		for (Missile missile : missiles) {
-			if (missile.ifcollision()) {
-				g2.setColor(Color.black);
-				g2.drawRect(missile.getX(), missile.getY(), missile.getWidth(), missile.getHeight());
-			} else {
-				missile.move();
-				missile.draw(g2);
-			}
+//			if (missile.collidewith(hero)) {
+////				g2.setColor(Color.black);
+////				g2.drawRect(missile.getX(), missile.getY(), missile.getWidth(), missile.getHeight());
+//				g2.setColor(Color.red);
+//				g2.setFont(new Font("MV Boli",Font.PLAIN,45));
+//				g2.drawString("Game Over!",150,100);
+//				g2.setColor(Color.BLACK);
+//				hero.liveLose(missile);
+//				
+//			} else {
+//				missile.move();
+//				missile.draw(g2);
+//			}
+			missile.draw(g2);
 		}
 		for (TrackMissile trackMissile : trackMissiles) {
-			if (trackMissile.ifcollision()) {
-				g2.setColor(Color.black);
-				g2.drawRect(trackMissile.getX(), trackMissile.getY(), trackMissile.getWidth(),
-						trackMissile.getHeight());
-			} else {
-				trackMissile.draw(g2);
-				trackMissile.move();
-				if (trackMissile.y < hero.y) {
-					trackMissile.moveup();
-				} else {
-					trackMissile.movedown();
-				}
-			}
+//			if (trackMissile.ifcollision()) {
+//				g2.setColor(Color.black);
+//				g2.drawRect(trackMissile.getX(), trackMissile.getY(), trackMissile.getWidth(),
+//						trackMissile.getHeight());
+//			} else {
+			trackMissile.draw(g2);
+			
+//			}
 		}
 //		barrier.draw(g2);
 //		electricBarrier.draw(g2);
@@ -252,11 +301,11 @@ public class Panel extends JPanel implements Runnable {
 	}
 
 	public void handleCollisions(Hero hero) {
-		for (Coin co : coins) {
-			if (co.collidewith(hero)) {
-				co.disappear();
-			}
-		}
+//		for (Coin co : coins) {
+//			if (co.collidewith(hero)) {
+//				co.disappear();
+//			}
+//		}
 //		for(Barrier barrier : barriers) {
 //			if (barrier.collidewith(hero)) {
 //				barrier.disappear();
@@ -265,6 +314,11 @@ public class Panel extends JPanel implements Runnable {
 //		for(Barrier eleCtricBarrier : electricBarriers) {
 //			if ( eleCtricBarrier.collidewith(hero)) {
 //				 eleCtricBarrier.disappear();
+//			}
+//		}
+//		for (Missile missile : missiles) {
+//			if (missile.collidewith(hero)) {
+//				missile.disappear();
 //			}
 //		}
 	}

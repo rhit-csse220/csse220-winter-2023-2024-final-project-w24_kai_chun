@@ -11,6 +11,7 @@ public class TrackMissile extends Missile {
 
 	public TrackMissile(Panel p, int x, int y, int angle) {
 		super(p, x, y, angle);
+		this.width = this.width*3;
 		getTrackMissileImage();
 	}
 
