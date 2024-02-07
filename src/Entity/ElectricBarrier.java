@@ -24,7 +24,7 @@ public class ElectricBarrier extends Barrier {
 	@Override
 	public void getPipeImage() {
 		try {
-//			System.out.println("ElectricPipe");
+			System.out.println("ElectricPipe");
 			image = ImageIO.read(getClass().getResourceAsStream("EletricBarrier.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
