@@ -1,5 +1,6 @@
 package Entity;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.IOException;
 
@@ -35,6 +36,9 @@ public class Barrier extends Entity {
 	public void draw(Graphics2D g2) {
 		g2.rotate(Math.toRadians(angle), x, y);
 		g2.drawImage(image, x, y, this.width, this.height, null);
+		g2.setColor(Color.red);
+		g2.drawRect(x, y, width, height);
+		g2.setColor(Color.black);
 		g2.rotate(-Math.toRadians(angle), x, y);
 
 	}

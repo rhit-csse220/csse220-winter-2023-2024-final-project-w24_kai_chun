@@ -23,7 +23,6 @@ public class Coin extends Entity {
 
 	public void getCoinImage() {
 		try {
-//			System.out.println("coin");
 			image = ImageIO.read(getClass().getResourceAsStream("MarioCoin-removebg-preview.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -35,13 +34,8 @@ public class Coin extends Entity {
 //		g2.fillRect(x, y, p.tileSize, p.tileSize);
 		if (this.collision == false) {
 			g2.drawImage(image, x, y, p.tileSize / 2, p.tileSize / 2, null);
-		}else {
-			
+		} else {
+
 		}
 	}
-
-//	public boolean collideWithHero(Hero hero) {
-//		return false;
-//	}
-
 }

@@ -54,13 +54,13 @@ public class Entity {
 		}
 		
 	}
-	public void resetcollision() {
-		
-		this.collision=false;
-		
-	}
-	public void disappear() {
-		this.collision = true;
-	}
+//	public void resetcollision() {
+//		
+//		this.collision=false;
+//		
+//	}
+//	public void disappear() {
+//		this.collision = true;
+//	}
 
 }

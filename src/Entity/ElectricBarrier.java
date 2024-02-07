@@ -42,7 +42,9 @@ public class ElectricBarrier extends Barrier {
 		g2.rotate(Math.toRadians(angle), x, y);
 		g2.drawImage(image, x, y, this.width , this.height, null);
 		g2.drawRect( x, y, this.width , this.height );
-		
+		g2.setColor(Color.red);
+		g2.drawRect(x, y, width, height);
+		g2.setColor(Color.black);
 		g2.rotate(-Math.toRadians(angle), x, y);
 		
 	}
