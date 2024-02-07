@@ -39,16 +39,16 @@ public class ElectricBarrier extends Barrier {
 //			g2.drawString("Game Over!",150,100);
 //		}
 		
-		g2.rotate(Math.toRadians(angle), x, y);
+//		g2.rotate(Math.toRadians(angle), x, y);
 		g2.drawImage(image, x, y, this.width , this.height, null);
 		g2.drawRect( x, y, this.width , this.height );
 		g2.setColor(Color.red);
 		g2.drawRect(x, y, width, height);
 		g2.setColor(Color.black);
-		g2.rotate(-Math.toRadians(angle), x, y);
+//		g2.rotate(-Math.toRadians(angle), x, y);
 		
 	}
-	@Override
+
 	public boolean collidewith(Hero hero) {
 		Rectangle heroRectangle = new Rectangle(hero.x,hero.y,hero.width,hero.height);
 		if(heroRectangle.intersects(new Rectangle(this.x,this.y,this.width,this.height))) {
@@ -57,6 +57,7 @@ public class ElectricBarrier extends Barrier {
 		else {
 			return false;
 		}
+		
 		
 	}
 }

@@ -223,7 +223,7 @@ public class Panel extends JPanel implements Runnable {
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
+	
 		Graphics2D g2 = (Graphics2D) g;
 		hero.draw(g2);
 
@@ -253,6 +253,7 @@ public class Panel extends JPanel implements Runnable {
 //				barrier.draw(g2);
 //
 //			}
+			
 			barrier.draw(g2);
 		}
 

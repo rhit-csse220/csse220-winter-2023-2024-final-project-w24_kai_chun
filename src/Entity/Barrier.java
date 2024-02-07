@@ -10,7 +10,7 @@ import Main.Panel;
 
 public class Barrier extends Entity {
 	Panel p;
-	int angle;
+	public int angle;
 
 	public Barrier(Panel p, int x, int y, int angle) {
 		this.x = x;
