@@ -47,7 +47,6 @@ public class Entity {
 	public boolean collidewith(Hero hero) {
 		Rectangle heroRectangle = new Rectangle(hero.x,hero.y,hero.width,hero.height);
 		if(heroRectangle.intersects(new Rectangle(this.x,this.y,this.width,this.height))) {
-			
 			return true;
 		}
 		else {
@@ -55,13 +54,13 @@ public class Entity {
 		}
 		
 	}
-	public void resetcollision() {
-		
-		this.collision=false;
-		
-	}
-	public void disappear() {
-		this.collision = true;
-	}
+//	public void resetcollision() {
+//		
+//		this.collision=false;
+//		
+//	}
+//	public void disappear() {
+//		this.collision = true;
+//	}
 
 }

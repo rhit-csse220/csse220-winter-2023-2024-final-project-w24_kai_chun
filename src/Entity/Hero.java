@@ -13,7 +13,7 @@ import Main.Panel;
 public class Hero extends Entity {
 	Panel p;
 	KeyHandler keyH;
-
+	int lives;
 	public Hero(Panel p, KeyHandler keyH) {
 		this.p = p;
 		this.keyH = keyH;

@@ -12,13 +12,13 @@ public class Missile extends Entity{
 		this.x=x;
 		this.y=y;
 		this.speed=5;
-		this.width=p.tileSize*4;
+		this.width=p.tileSize*4/3;
 		this.height=p.tileSize;
 		getMissileImage();
 	}
 
 	public void move() {
-		x -= 8;
+		x -= 5;
 	}
 
 	public void getMissileImage() {
@@ -31,7 +31,8 @@ public class Missile extends Entity{
 	}
 
 	public void draw(Graphics2D g2) {
-		g2.drawImage(image, x, y, this.width / 3, this.height, null);
+		
+		g2.drawImage(image, x, y, this.width, this.height, null);
 
 	}
 }
