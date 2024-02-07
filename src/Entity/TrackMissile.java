@@ -18,7 +18,7 @@ public class TrackMissile extends Missile {
 		x -= 6;
 	}
 	public void moveup() {
-		y+=2;
+		y+=2; 
 	}
 	public void movedown() {
 		y-=2;
