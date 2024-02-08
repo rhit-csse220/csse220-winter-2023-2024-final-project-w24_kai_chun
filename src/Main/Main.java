@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 public class Main {
 	public static int level = 1;
 	static Panel panel;
-
+	Sound sound;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		JFrame frame = new JFrame();
@@ -40,10 +40,10 @@ public class Main {
 					panel.hero.x=10;
 					panel.hero.y=500;
 					try {
-						level++;
-						runApp(level);
+						panel.countLevel++;
+						runApp(panel.countLevel);
 					} catch (FileNotFoundException | InvalidLevelFormatException e1) {
-						System.out.println("Level " + (level) + " does not exist. Going back to level 1");
+						System.out.println("Level " + (panel.countLevel) + " does not exist. Going back to level 1");
 						level = 1;
 						e1.printStackTrace();
 					}
@@ -58,10 +58,10 @@ public class Main {
 					panel.hero.x=10;
 					panel.hero.y=500;
 					try {
-						level--;
-						runApp(level);
+						panel.countLevel--;
+						runApp(panel.countLevel);
 					} catch (FileNotFoundException | InvalidLevelFormatException e1) {
-						System.out.println("Level " + (level) + " does not exist. Going back to level 1");
+						System.out.println("Level " + (panel.countLevel) + " does not exist. Going back to level 1");
 						level = 1;
 						e1.printStackTrace();
 					}
@@ -88,14 +88,14 @@ public class Main {
 	}
 
 	protected static void runApp(int i) throws FileNotFoundException, InvalidLevelFormatException {
-		if(level>=2) {
-			level=2;
+		if(panel.countLevel>=2) {
+			panel.countLevel=2;
 		}
-		if(level<=1) {
-			level=1;
+		if(panel.countLevel<=1) {
+			panel.countLevel=1;
 		}
-		System.out.println(level);
-		panel.loadfile(level);
+		System.out.println(panel.countLevel);
+		panel.loadfile(panel.countLevel);
 	}
 
 }

@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
-	
+	public boolean startGame=false;
 	public boolean upPressed;
 	public int level=1;
 	@Override
@@ -20,6 +20,10 @@ public class KeyHandler implements KeyListener{
 		if(code == KeyEvent.VK_SPACE || code == KeyEvent.VK_UP)
 		{
 			upPressed = true;
+		}
+		if(code == KeyEvent.VK_ENTER) {
+//			System.out.println("kkk");
+			startGame = true;
 		}
 		if(e.getKeyCode()==85) {
 //    		runApp(levelNumb+1);
