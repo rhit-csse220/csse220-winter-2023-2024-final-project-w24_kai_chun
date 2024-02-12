@@ -2,6 +2,7 @@ package Entity;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -10,7 +11,7 @@ import Main.Panel;
 
 public class Barrier extends Entity {
 	Panel p;
-	int angle;
+	public int angle;
 
 	public Barrier(Panel p, int x, int y, int angle) {
 		this.x = x;
@@ -33,6 +34,15 @@ public class Barrier extends Entity {
 	}
 
 
+	public boolean collideButtonOrTop(Hero hero) {
+		Rectangle heroRectangle = new Rectangle(hero.x,hero.y,hero.width,hero.height);
+		if(heroRectangle.intersectsLine(x+5,y,x+this.width,y)||heroRectangle.intersectsLine(x+5, y+this.height,x+this.width, y+this.height)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	public void draw(Graphics2D g2) {
 		g2.rotate(Math.toRadians(angle), x, y);
 		g2.drawImage(image, x, y, this.width, this.height, null);

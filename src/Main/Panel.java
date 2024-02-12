@@ -9,11 +9,14 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.json.simple.JSONArray;
@@ -36,19 +39,21 @@ public class Panel extends JPanel implements Runnable {
 	private static final int TrackMissile = 5;
 	final int originalTileSize = 16;
 	final int scale = 3;
-	private int countCoins = 0;
-	private int countLevel = 1;
-	private int countLives = 3;
+	public int countCoins = 0;
+	public int countLevel = 1;
+	public int countLives = 3;
 	public final int tileSize = originalTileSize * scale;
 	final int maxScreenCol = 16;
 	final int maxScreenRow = 12;
 	final int screenWidth = tileSize * maxScreenCol;// 768 px
 	final int screenHeight = tileSize * maxScreenRow;// 576 px
 	boolean gameOver;
-
+	int countBarrierCollision;
 	int FPS = 60;
+	long seconds = 0;
 	KeyHandler keyH = new KeyHandler();
 	Thread gameThread;
+	Sound sound;
 
 	ArrayList<Coin> coins = new ArrayList<>();
 	ArrayList<Barrier> barriers = new ArrayList<>();
@@ -58,8 +63,12 @@ public class Panel extends JPanel implements Runnable {
 	Hero hero = new Hero(this, keyH);
 
 	int playerX = 10;
-	int playerY = 500;
+	int playerY = 528;
 	int palyerSpeed = 14;
+	private int frameCount;
+	private boolean gameStop;
+	private int countSound = 1;
+	private boolean playingMusic;
 
 	public Panel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -99,7 +108,7 @@ public class Panel extends JPanel implements Runnable {
 			x = scanner.nextInt();
 			y = scanner.nextInt();
 			angle = scanner.nextInt();
-			if (name < 1 || name > 5 || x > 768 || x < 0 || y < 0 || y > 576 || angle > 360 || angle < 0) {
+			if (name < 1 || name > 5 || x < 0 || y < 0 || y > 576 || angle > 360 || angle < 0) {
 				throw new InvalidLevelFormatException(data);
 			}
 		} catch (InputMismatchException e) {
@@ -128,80 +137,163 @@ public class Panel extends JPanel implements Runnable {
 
 	public void startGameThread() {
 		gameThread = new Thread(this);
+
 		gameThread.start();
+		sound = new Sound();
+
 	}
 
 	@Override
 	public void run() {
 		double drawInterval = 1000000000 / FPS; // 0.016666seconds
 		double nextDrawTime = System.nanoTime() + drawInterval;
-
+		long start = System.currentTimeMillis();
+		;
+		long seconds = 0;
 		while (gameThread != null) {
 
+			if (keyH.startGame) {
+				seconds = (System.currentTimeMillis() - start) / 1000;
+			}
+//			System.out.println(String.valueOf(seconds));
+
+//			        Thread.sleep(500);
+
+			if (seconds >= 5 && !gameOver) {
+				hero.x += hero.speed / 3;
+			}
 			// update coins and if collision add countCoins and remove the coin
 			for (int i = 0; i < coins.size(); i++) {
 				Coin coin = coins.get(i);
 				if (coin.collidewith(hero)) {
+					if (countSound > 1) {
+						stopMusic();
+					}
+					countSound++;
 					coins.remove(i);
 					countCoins++;
 					i--;
+					if (countLives != 0) {
+						playSoundEffect(0);
+					}
 				}
-				coin.update();
+				if (keyH.startGame && countLives > 0 && !this.gameStop) {
+					coin.update();
+				}
 			}
 
 			// update missiles and if collision minus lives and remove the missile
 			for (int i = 0; i < barriers.size(); i++) {
 				Barrier barrier = barriers.get(i);
 				if (barrier.collidewith(hero)) {
-//					barriers.remove(i);
-//					i--;
-					hero.speed=0;
+//					int barrierNotCollide = 0;
+//					if (barrier.collideButtonOrTop(hero)) {
+//						hero.yDirection = false;
+//					}else {
+//						for(Barrier bar: barriers) {
+//							if(!bar.collideButtonOrTop(hero)) {
+//								barrierNotCollide++;
+//							}
+//						}
+//						if(barrierNotCollide==barriers.size()-1) {
+//							hero.yDirection=true;
+//						}
+//					}
+					gameStop = true;
+					hero.speed = 0;
+				} else {
+//					hero.speed = 5;
+					int barrierNotCollide = 0;
+					for (Barrier bar : barriers) {
+						if (!bar.collidewith(hero)) {
+							barrierNotCollide++;
+						}
+					}
+					if (barrierNotCollide == barriers.size()) {
+						gameStop = false;
+						hero.speed = 3;
+					}
+//					this.gameStop = false;
 				}
-				else {
-					hero.speed=5;
+				if (keyH.startGame && countLives > 0 && !this.gameStop) {
+					barrier.update();
 				}
-				barrier.update();
 			}
 
 			// update missiles and if collision minus lives and remove the missile
 			for (int i = 0; i < electricBarriers.size(); i++) {
 				ElectricBarrier ele = electricBarriers.get(i);
 				if (ele.collidewith(hero)) {
+//					stopMusic();
+					if (countSound > 1) {
+						stopMusic();
+					}
+					countSound++;
 					electricBarriers.remove(i);
 					countLives--;
 					i--;
+					if (countLives != 0) {
+						playSoundEffect(3);
+					}
 				}
-				ele.update();
+
+				if (keyH.startGame && countLives > 0 && !this.gameStop) {
+					ele.update();
+				}
 			}
 
 			// update missiles and if collision minus lives and remove the missile
 			for (int i = 0; i < missiles.size(); i++) {
 				Missile missile = missiles.get(i);
 				if (missile.collidewith(hero)) {
+//					stopMusic();
+					if (countSound > 1) {
+						stopMusic();
+					}
+					countSound++;
 					missiles.remove(i);
-//					countLives--;
+					countLives--;
 					i--;
+					if (countLives != 0) {
+						playSoundEffect(3);
+					}
 				}
-				missile.move();
+
+				if (keyH.startGame && countLives > 0) {
+					missile.move();
+				}
 			}
 
 			// update trackMissiles and if collision minus lives and remove the trackMissile
 			for (int i = 0; i < trackMissiles.size(); i++) {
 				TrackMissile trackMissile = trackMissiles.get(i);
 				if (trackMissile.collidewith(hero)) {
+//					stopMusic();
+					if (countSound > 1) {
+						stopMusic();
+					}
+					countSound++;
+
 					trackMissiles.remove(i);
-//					countLives--;
+					countLives--;
 					i--;
+					if (countLives != 0) {
+						playSoundEffect(3);
+					}
 				}
-				trackMissile.move();
-				if (trackMissile.y < hero.y) {
+				if (keyH.startGame && countLives > 0) {
+					trackMissile.move();
+				}
+
+				if (trackMissile.y < hero.y && countLives > 0) {
 					trackMissile.moveup();
-				} else {
+				} else if (countLives > 0) {
 					trackMissile.movedown();
 				}
 			}
-
-			hero.update();
+			if (countLives > 0) {
+				hero.update();
+			}
 			repaint();
 
 			// make the thread wait a little bit set to update 60 times per second
@@ -226,24 +318,19 @@ public class Panel extends JPanel implements Runnable {
 
 		Graphics2D g2 = (Graphics2D) g;
 		hero.draw(g2);
+		if (!keyH.startGame) {
+			g2.setColor(Color.yellow);
+			g2.setFont(new Font("MV Boli", Font.PLAIN, 30));
+			g2.drawString("Please hitted the enter to start the game!", 60, 100);
+			g2.setColor(Color.BLACK);
+		} else {
 
-		// drawing the data for the upper left of the screen
-		g2.setColor(Color.BLUE);
-		g2.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-		g2.drawString("Level: " + countLevel, 10, 20);
-		g2.setColor(Color.red);
-		String liv = "HP: " + countLives;
-		g2.drawString(liv, 100, 20);
-		g2.setColor(Color.yellow);
-		g2.drawString("Coins: " + countCoins, 190, 20);
-		g2.setColor(Color.black);
+			// draw all of the coins
+			for (Coin coin : coins) {
+				coin.draw(g2);
+			}
 
-		// draw all of the coins
-		for (Coin coin : coins) {
-			coin.draw(g2);
-		}
-
-		for (Barrier barrier : barriers) {
+			for (Barrier barrier : barriers) {
 //			if (barrier.ifcollision()) {
 ////				hero.speed=0;
 //				barrier.update();
@@ -253,10 +340,11 @@ public class Panel extends JPanel implements Runnable {
 //				barrier.draw(g2);
 //
 //			}
-			barrier.draw(g2);
-		}
 
-		for (ElectricBarrier ele : electricBarriers) {
+				barrier.draw(g2);
+			}
+
+			for (ElectricBarrier ele : electricBarriers) {
 //			if (ele.ifcollision()) {
 //				g2.setColor(Color.red);
 //				g2.setFont(new Font("MV Boli", Font.PLAIN, 45));
@@ -280,22 +368,99 @@ public class Panel extends JPanel implements Runnable {
 //				ele.draw(g2);
 //
 //			}
-			ele.draw(g2);
+				ele.draw(g2);
+			}
+			// draw all of the missiles
+			for (Missile missile : missiles) {
+				missile.draw(g2);
+			}
+
+			// draw all of the trackMissile
+			for (TrackMissile trackMissile : trackMissiles) {
+				trackMissile.draw(g2);
+			}
 		}
-		// draw all of the missiles
-		for (Missile missile : missiles) {
-			missile.draw(g2);
+		if (keyH.startGame) {
+			// drawing the data for the upper left of the screen
+			g2.setColor(Color.white);
+			g2.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+			g2.drawString("Level: " + countLevel, 10, 20);
+			g2.setColor(Color.red);
+			String liv = "HP: " + countLives;
+			g2.drawString(liv, 100, 20);
+			g2.setColor(Color.yellow);
+			g2.drawString("Coins: " + countCoins, 190, 20);
+			g2.setColor(Color.black);
+			if (!playingMusic) {
+//				playMusic(1);
+				playingMusic = true;
+			}
+			if (this.countLives == 0) {
+				frameCount++;
+				g2.setColor(Color.red);
+				g2.setFont(new Font("MV Boli", Font.PLAIN, 70));
+				g2.drawString("Game Over!", 205, 300);
+				g2.setColor(Color.BLACK);
+				hero.speed = 0;
+				if (frameCount == 1) {
+					stopMusic();
+					playSoundEffect(2);
+				}
+				if (frameCount == 300) {
+					this.countLevel = 1;
+					this.countCoins = 0;
+					this.countLives = 3;
+					frameCount = 0;
+					this.coins.clear();
+					this.barriers.clear();
+					this.electricBarriers.clear();
+					this.seconds = 0;
+					hero.x = 10;
+					hero.y = 528;
+					stopMusic();
+					stopMusic();
+					playingMusic = false;
+//					playSoundEffect(3);
+					this.loadfile(this.countLevel);
+				}
+				// how can I make my game stop for 3 second and also show game over
+//					try {
+//						Thread.sleep(3000);
+//					} catch (InterruptedException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+
+			}
+			g2.dispose();
+
 		}
 
-		// draw all of the trackMissile
-		for (TrackMissile trackMissile : trackMissiles) {
-			trackMissile.draw(g2);
-		}
-		g2.dispose();
+	}
 
+	public void playMusic(int i) {
+		sound.setFile(i);
+		sound.play();
+		sound.loop();
+
+	}
+
+	public void stopMusic() {
+		sound.stop();
+	}
+
+	public void playSoundEffect(int i) {
+
+		sound.setFile(i);
+		sound.play();
 	}
 
 	public int getlevel() {
 		return keyH.level;
+	}
+
+	public void goUpOneLevel() {
+		this.countLevel++;
+		this.loadfile(this.countLevel);
 	}
 }

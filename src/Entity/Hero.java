@@ -14,6 +14,7 @@ public class Hero extends Entity {
 	Panel p;
 	KeyHandler keyH;
 	int lives;
+	public boolean yDirection=true;
 	public Hero(Panel p, KeyHandler keyH) {
 		this.p = p;
 		this.keyH = keyH;
@@ -25,7 +26,7 @@ public class Hero extends Entity {
 
 	public void setDefaultValues() {
 		this.x = 10;
-		this.y = 500;
+		this.y = 528;
 		this.speed = 8;
 	}
 
@@ -38,18 +39,24 @@ public class Hero extends Entity {
 	}
 
 	public void update() {
-		if (keyH.upPressed == true && y >= 0) {
+		if (keyH.upPressed == true && y >= 0 && yDirection) {
 			y -= 8;
 
 		}
-		if (y <= 576 - 48) {
+		if (y <= 576 - 48 && yDirection) {
 			y += 3;
 		}
 
-		if (x >= 768 - 48) {
-			x -= speed / 3;
+//		if (x >= 360 && p.countCoins<3) {
+//			x -= speed / 3;
+//		}
+		if(x>=768-48) {
+			x=10;
+			y=500;
+			p.goUpOneLevel();
+			
 		}
-		x += speed / 3;
+//		x += speed / 3;
 	}
 
 	public void draw(Graphics2D g2) {
