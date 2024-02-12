@@ -211,6 +211,7 @@ public class Panel extends JPanel implements Runnable {
 					}
 					if (barrierNotCollide == barriers.size()) {
 						gameStop = false;
+						hero.speed = 3;
 					}
 //					this.gameStop = false;
 				}
