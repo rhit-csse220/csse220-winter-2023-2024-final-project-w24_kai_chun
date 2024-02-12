@@ -185,6 +185,14 @@ public class Panel extends JPanel implements Runnable {
 			// update missiles and if collision minus lives and remove the missile
 			for (int i = 0; i < barriers.size(); i++) {
 				Barrier barrier = barriers.get(i);
+				if(barrier.collideTop(hero)) {
+					System.out.println("zzzz");
+					hero.y -= 3;
+				}
+				if(barrier.collideBottom(hero)) {
+					System.out.println("ddd");
+					hero.y += 8;
+				}
 				if (barrier.collidewith(hero)) {
 //					int barrierNotCollide = 0;
 //					if (barrier.collideButtonOrTop(hero)) {

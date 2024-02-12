@@ -8,7 +8,7 @@ import javax.sound.sampled.Clip;
 
 public class Sound {
 	Clip clip;
-	URL soundURL[] = new URL[30];
+	URL soundURL[] = new URL[6];
 
 	public Sound() {
 		soundURL[0] = getClass().getResource("/sound/smb_coin.wav");
@@ -25,7 +25,7 @@ public class Sound {
 			clip = AudioSystem.getClip();
 			clip.open(ais);
 		}catch(Exception e) {
-			
+			e.printStackTrace();
 		}
 		
 	}
