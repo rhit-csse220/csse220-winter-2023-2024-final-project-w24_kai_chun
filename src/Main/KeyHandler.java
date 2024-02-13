@@ -7,6 +7,8 @@ public class KeyHandler implements KeyListener{
 	public boolean startGame=false;
 	public boolean upPressed;
 	public int level=1;
+	public boolean restartTheGame=true;
+	public boolean newGame;
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -20,6 +22,11 @@ public class KeyHandler implements KeyListener{
 		if(code == KeyEvent.VK_SPACE || code == KeyEvent.VK_UP)
 		{
 			upPressed = true;
+		}
+		if(code == KeyEvent.VK_R) {
+			restartTheGame=false;
+			this.newGame = true;
+			
 		}
 		if(code == KeyEvent.VK_ENTER) {
 //			System.out.println("kkk");

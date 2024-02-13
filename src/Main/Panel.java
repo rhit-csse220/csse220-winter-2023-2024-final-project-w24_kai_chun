@@ -54,6 +54,7 @@ public class Panel extends JPanel implements Runnable {
 	KeyHandler keyH = new KeyHandler();
 	Thread gameThread;
 	Sound sound;
+	boolean winTheGame = false;
 
 	ArrayList<Coin> coins = new ArrayList<>();
 	ArrayList<Barrier> barriers = new ArrayList<>();
@@ -185,11 +186,11 @@ public class Panel extends JPanel implements Runnable {
 			// update missiles and if collision minus lives and remove the missile
 			for (int i = 0; i < barriers.size(); i++) {
 				Barrier barrier = barriers.get(i);
-				if(barrier.collideTop(hero)) {
+				if (barrier.collideTop(hero)) {
 					System.out.println("zzzz");
 					hero.y -= 3;
 				}
-				if(barrier.collideBottom(hero)) {
+				if (barrier.collideBottom(hero)) {
 					System.out.println("ddd");
 					hero.y += 8;
 				}
@@ -311,6 +312,20 @@ public class Panel extends JPanel implements Runnable {
 
 		Graphics2D g2 = (Graphics2D) g;
 		hero.draw(g2);
+
+		if (winTheGame && keyH.restartTheGame) {
+			g2.setColor(Color.gray);
+			g2.fillRect(0, 0, 768, 700);
+			g2.setColor(Color.red);
+			g2.setFont(new Font("MV Boli", Font.PLAIN, 30));
+			g2.drawString("Congragulation you have complete the game!", 60, 100);
+			g2.setColor(Color.blue);
+			g2.drawString("You got " + countCoins + " coins~", 230, 300);
+			g2.drawString("If you want to restart the game please press r", 40, 500);
+			g2.drawString("You can exit the game by close the frame", 50, 600);
+			g2.setColor(Color.BLACK);
+		}
+
 		if (!keyH.startGame) {
 			g2.setColor(Color.yellow);
 			g2.setFont(new Font("MV Boli", Font.PLAIN, 30));
@@ -388,18 +403,39 @@ public class Panel extends JPanel implements Runnable {
 //				playMusic(1);
 				playingMusic = true;
 			}
-			if (this.countLives == 0) {
-				frameCount++;
-				g2.setColor(Color.red);
-				g2.setFont(new Font("MV Boli", Font.PLAIN, 70));
-				g2.drawString("Game Over!", 205, 300);
-				g2.setColor(Color.BLACK);
-				hero.speed = 0;
+			if(keyH.newGame) {
+				this.countLevel = 1;
+				this.countCoins = 0;
+				this.countLives = 3;
+				frameCount = 0;
+				this.coins.clear();
+				this.barriers.clear();
+				this.electricBarriers.clear();
+				this.seconds = 0;
+				hero.x = 10;
+				hero.y = 528;
+				stopMusic();
+				stopMusic();
+				playingMusic = false;
+//				playSoundEffect(3);
+				this.loadfile(this.countLevel);
+				keyH.newGame=false;
+			}
+			if (this.countLives == 0 ) {
+				
+					frameCount++;
+					g2.setColor(Color.red);
+					g2.setFont(new Font("MV Boli", Font.PLAIN, 70));
+					g2.drawString("Game Over!", 205, 300);
+					g2.setColor(Color.BLACK);
+					hero.speed = 0;
+				
 				if (frameCount == 1) {
 					stopMusic();
 					playSoundEffect(2);
 				}
 				if (frameCount == 300) {
+					
 					this.countLevel = 1;
 					this.countCoins = 0;
 					this.countLives = 3;
@@ -456,4 +492,9 @@ public class Panel extends JPanel implements Runnable {
 		this.countLevel++;
 		this.loadfile(this.countLevel);
 	}
+
+	public void setWinTheGame() {
+		this.winTheGame = true;
+	}
+
 }

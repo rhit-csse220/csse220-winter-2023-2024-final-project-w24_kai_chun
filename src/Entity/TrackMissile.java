@@ -11,18 +11,17 @@ public class TrackMissile extends Missile {
 
 	public TrackMissile(Panel p, int x, int y, int angle) {
 		super(p, x, y, angle);
-		this.width = this.width*3;
 		getTrackMissileImage();
 	}
 
 	public void move() {
-		x -= 6;
+		x -= 4;
 	}
 	public void moveup() {
-		y+=2; 
+		y+=1; 
 	}
 	public void movedown() {
-		y-=2;
+		y-=1;
 	}
 	public void getTrackMissileImage() {
 		try {
@@ -34,7 +33,7 @@ public class TrackMissile extends Missile {
 	}
 
 	public void draw(Graphics2D g2) {
-		g2.drawImage(image, x, y, this.width / 3, this.height, null);
+		g2.drawImage(image, x, y, this.width , this.height, null);
 
 	}
 }

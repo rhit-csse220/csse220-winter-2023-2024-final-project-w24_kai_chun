@@ -14,7 +14,8 @@ public class Hero extends Entity {
 	Panel p;
 	KeyHandler keyH;
 	int lives;
-	public boolean yDirection=true;
+	public boolean yDirection = true;
+
 	public Hero(Panel p, KeyHandler keyH) {
 		this.p = p;
 		this.keyH = keyH;
@@ -50,11 +51,17 @@ public class Hero extends Entity {
 //		if (x >= 360 && p.countCoins<3) {
 //			x -= speed / 3;
 //		}
-		if(x>=768-48) {
-			x=10;
-			y=500;
-			p.goUpOneLevel();
-			
+
+		if (x >= 768 - 48) {
+			x = 10;
+			y = 500;
+			if (p.countLevel == 2) {
+				keyH.restartTheGame=true;
+				p.setWinTheGame();
+				
+			} else {
+				p.goUpOneLevel();
+			}
 		}
 //		x += speed / 3;
 	}
