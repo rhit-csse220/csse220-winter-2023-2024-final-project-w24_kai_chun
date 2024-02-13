@@ -48,6 +48,10 @@ public class Barrier extends Entity {
 		g2.drawImage(image, x, y, this.width, this.height, null);
 		g2.setColor(Color.red);
 		g2.drawRect(x, y, width, height);
+		g2.setColor(Color.yellow);
+		g2.drawLine(x+5,y,x+this.width,y);
+		g2.drawLine(x+5, y+this.height,x+this.width, y+this.height);
+		
 		g2.setColor(Color.black);
 		g2.rotate(-Math.toRadians(angle), x, y);
 

@@ -186,23 +186,9 @@ public class Panel extends JPanel implements Runnable {
 			for (int i = 0; i < barriers.size(); i++) {
 				Barrier barrier = barriers.get(i);
 				if (barrier.collidewith(hero)) {
-//					int barrierNotCollide = 0;
-//					if (barrier.collideButtonOrTop(hero)) {
-//						hero.yDirection = false;
-//					}else {
-//						for(Barrier bar: barriers) {
-//							if(!bar.collideButtonOrTop(hero)) {
-//								barrierNotCollide++;
-//							}
-//						}
-//						if(barrierNotCollide==barriers.size()-1) {
-//							hero.yDirection=true;
-//						}
-//					}
 					gameStop = true;
 					hero.speed = 0;
 				} else {
-//					hero.speed = 5;
 					int barrierNotCollide = 0;
 					for (Barrier bar : barriers) {
 						if (!bar.collidewith(hero)) {
@@ -213,7 +199,6 @@ public class Panel extends JPanel implements Runnable {
 						gameStop = false;
 						hero.speed = 3;
 					}
-//					this.gameStop = false;
 				}
 				if (keyH.startGame && countLives > 0 && !this.gameStop) {
 					barrier.update();
