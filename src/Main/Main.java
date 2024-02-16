@@ -81,7 +81,7 @@ public class Main {
 		});
 		panel.loadfile(1);
 		frame.add(panel);
-
+		System.out.println("");
 		frame.pack();
 
 		frame.setLocationRelativeTo(null);
