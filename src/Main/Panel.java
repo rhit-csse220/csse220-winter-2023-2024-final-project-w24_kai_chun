@@ -70,6 +70,7 @@ public class Panel extends JPanel implements Runnable {
 	private boolean gameStop;
 	private int countSound = 1;
 	private boolean playingMusic;
+	private int playWinGame;
 
 	public Panel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -140,7 +141,8 @@ public class Panel extends JPanel implements Runnable {
 		gameThread = new Thread(this);
 
 		gameThread.start();
-		sound = new Sound();
+
+		     sound = new Sound();
 
 	}
 
@@ -324,6 +326,10 @@ public class Panel extends JPanel implements Runnable {
 			g2.drawString("If you want to restart the game please press r", 40, 500);
 			g2.drawString("You can exit the game by close the frame", 50, 600);
 			g2.setColor(Color.BLACK);
+			if(playWinGame<1) {
+			playSoundEffect(5);
+			playWinGame++;
+			}
 		}
 
 		if (!keyH.startGame) {
@@ -339,43 +345,10 @@ public class Panel extends JPanel implements Runnable {
 			}
 
 			for (Barrier barrier : barriers) {
-//			if (barrier.ifcollision()) {
-////				hero.speed=0;
-//				barrier.update();
-//				barrier.draw(g2);
-//			} else {
-//				barrier.update();
-//				barrier.draw(g2);
-//
-//			}
-
 				barrier.draw(g2);
 			}
 
 			for (ElectricBarrier ele : electricBarriers) {
-//			if (ele.ifcollision()) {
-//				g2.setColor(Color.red);
-//				g2.setFont(new Font("MV Boli", Font.PLAIN, 45));
-//				g2.drawString("Game Over!", 150, 100);
-//				g2.setColor(Color.BLACK);
-//				// stop a little bit
-////				try {
-////					Thread.sleep(3000);
-////				} catch (InterruptedException e) {
-////					// TODO Auto-generated catch block
-////					e.printStackTrace();
-////				}
-////				this.loadfile(1);
-////				hero.x=10;
-////				hero.y=500;
-////				ele.resetcollision();
-//				ele.update();
-//				ele.draw(g2);
-//			} else {
-//				ele.update();
-//				ele.draw(g2);
-//
-//			}
 				ele.draw(g2);
 			}
 			// draw all of the missiles
@@ -400,7 +373,6 @@ public class Panel extends JPanel implements Runnable {
 			g2.drawString("Coins: " + countCoins, 190, 20);
 			g2.setColor(Color.black);
 			if (!playingMusic) {
-//				playMusic(1);
 				playingMusic = true;
 			}
 			if(keyH.newGame) {
@@ -417,7 +389,6 @@ public class Panel extends JPanel implements Runnable {
 				stopMusic();
 				stopMusic();
 				playingMusic = false;
-//				playSoundEffect(3);
 				this.loadfile(this.countLevel);
 				keyH.newGame=false;
 			}

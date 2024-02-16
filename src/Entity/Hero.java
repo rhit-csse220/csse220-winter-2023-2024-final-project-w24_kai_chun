@@ -55,7 +55,7 @@ public class Hero extends Entity {
 		if (x >= 768 - 48) {
 			x = 10;
 			y = 500;
-			if (p.countLevel == 2) {
+			if (p.countLevel == 4) {
 				keyH.restartTheGame=true;
 				p.setWinTheGame();
 				

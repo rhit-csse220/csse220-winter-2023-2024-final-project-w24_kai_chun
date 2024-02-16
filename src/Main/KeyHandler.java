@@ -29,16 +29,12 @@ public class KeyHandler implements KeyListener{
 			
 		}
 		if(code == KeyEvent.VK_ENTER) {
-//			System.out.println("kkk");
 			startGame = true;
 		}
 		if(e.getKeyCode()==85) {
-//    		runApp(levelNumb+1);
-//			panel.loadfile(panel.getlevel());
 			level++;
     	}
     	if(e.getKeyCode()==68) {
-//    		runApp(levelNumb-1);
     		level--;
     	}
 	}

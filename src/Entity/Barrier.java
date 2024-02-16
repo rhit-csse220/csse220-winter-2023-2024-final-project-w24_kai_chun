@@ -37,7 +37,6 @@ public class Barrier extends Entity {
 	public boolean collideTop(Hero hero) {
 		Rectangle heroRectangle = new Rectangle(hero.x,hero.y,hero.width,hero.height);
 		if(heroRectangle.intersectsLine(x+5,y,x+this.width,y)) {
-			System.out.println("fffff");
 			return true;
 		}
 		else {
@@ -47,7 +46,6 @@ public class Barrier extends Entity {
 	public boolean collideBottom(Hero hero) {
 		Rectangle heroRectangle = new Rectangle(hero.x,hero.y,hero.width,hero.height);
 		if(heroRectangle.intersectsLine(x+5, y+this.height,x+this.width, y+this.height)) {
-			System.out.println("fffff");
 			return true;
 		}
 		else {
