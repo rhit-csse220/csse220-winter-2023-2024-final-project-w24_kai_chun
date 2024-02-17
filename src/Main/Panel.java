@@ -5,25 +5,13 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.Iterator;
 import java.util.Scanner;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
 import Entity.Barrier;
 import Entity.Coin;
 import Entity.ElectricBarrier;
@@ -158,10 +146,6 @@ public class Panel extends JPanel implements Runnable {
 			if (keyH.startGame) {
 				seconds = (System.currentTimeMillis() - start) / 1000;
 			}
-//			System.out.println(String.valueOf(seconds));
-
-//			        Thread.sleep(500);
-
 			if (seconds >= 5 && !gameOver) {
 				hero.x += hero.speed / 3;
 			}
@@ -189,11 +173,9 @@ public class Panel extends JPanel implements Runnable {
 			for (int i = 0; i < barriers.size(); i++) {
 				Barrier barrier = barriers.get(i);
 				if (barrier.collideTop(hero)) {
-					System.out.println("zzzz");
 					hero.y -= 3;
 				}
 				if (barrier.collideBottom(hero)) {
-					System.out.println("ddd");
 					hero.y += 8;
 				}
 				if (barrier.collidewith(hero)) {
@@ -220,7 +202,6 @@ public class Panel extends JPanel implements Runnable {
 			for (int i = 0; i < electricBarriers.size(); i++) {
 				ElectricBarrier ele = electricBarriers.get(i);
 				if (ele.collidewith(hero)) {
-//					stopMusic();
 					if (countSound > 1) {
 						stopMusic();
 					}
@@ -232,7 +213,6 @@ public class Panel extends JPanel implements Runnable {
 						playSoundEffect(3);
 					}
 				}
-
 				if (keyH.startGame && countLives > 0 && !this.gameStop) {
 					ele.update();
 				}
@@ -242,7 +222,7 @@ public class Panel extends JPanel implements Runnable {
 			for (int i = 0; i < missiles.size(); i++) {
 				Missile missile = missiles.get(i);
 				if (missile.collidewith(hero)) {
-//					stopMusic();
+
 					if (countSound > 1) {
 						stopMusic();
 					}
@@ -264,7 +244,6 @@ public class Panel extends JPanel implements Runnable {
 			for (int i = 0; i < trackMissiles.size(); i++) {
 				TrackMissile trackMissile = trackMissiles.get(i);
 				if (trackMissile.collidewith(hero)) {
-//					stopMusic();
 					if (countSound > 1) {
 						stopMusic();
 					}
@@ -420,17 +399,8 @@ public class Panel extends JPanel implements Runnable {
 					stopMusic();
 					stopMusic();
 					playingMusic = false;
-//					playSoundEffect(3);
 					this.loadfile(this.countLevel);
 				}
-				// how can I make my game stop for 3 second and also show game over
-//					try {
-//						Thread.sleep(3000);
-//					} catch (InterruptedException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-
 			}
 			g2.dispose();
 
@@ -467,5 +437,4 @@ public class Panel extends JPanel implements Runnable {
 	public void setWinTheGame() {
 		this.winTheGame = true;
 	}
-
 }

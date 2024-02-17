@@ -48,10 +48,6 @@ public class Hero extends Entity {
 			y += 3;
 		}
 
-//		if (x >= 360 && p.countCoins<3) {
-//			x -= speed / 3;
-//		}
-
 		if (x >= 768 - 48) {
 			x = 10;
 			y = 500;
@@ -63,14 +59,11 @@ public class Hero extends Entity {
 				p.goUpOneLevel();
 			}
 		}
-//		x += speed / 3;
 	}
 
 	public void draw(Graphics2D g2) {
-//		g2.setColor(Color.white);
-//		g2.fillRect(x, y, p.tileSize, p.tileSize);
 		g2.drawImage(image, x, y, this.width, this.height, null);
-		g2.drawRect(x, y, this.width, this.height);
+
 	}
 
 }

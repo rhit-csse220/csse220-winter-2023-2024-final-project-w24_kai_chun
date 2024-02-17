@@ -33,21 +33,12 @@ public class ElectricBarrier extends Barrier {
 
 	@Override
 	public void draw(Graphics2D g2) {
-//		if(this.collision) {
-//			g2.setColor(Color.red);
-//			g2.setFont(new Font("MV Boli",Font.PLAIN,45));
-//			g2.drawString("Game Over!",150,100);
-//		}
-		
 		g2.rotate(Math.toRadians(angle), x, y);
 		g2.drawImage(image, x, y, this.width , this.height, null);
 		g2.drawRect( x, y, this.width , this.height );
 		g2.setColor(Color.red);
-		g2.drawRect(x, y, width, height);
 		g2.rotate(-Math.toRadians(angle), x, y);
-//		g2.drawRect( x, y, this.width , this.height );
 		g2.setColor(Color.black);
-
 	}
 
 	public boolean collidewith(Hero hero) {
@@ -63,13 +54,8 @@ public class ElectricBarrier extends Barrier {
 				heroRectangle.intersectsLine(this.x-(this.height*Math.sin(45))+(this.width*Math.sin(45)), y+(this.height*Math.sin(45))+(this.width*Math.sin(45)), x+(this.width*Math.sin(45)), y+(this.width*Math.sin(45))))) {
 			return true;
 		}
-//		if(heroRectangle.intersects(new Rectangle(this.x,this.y,this.width,this.height))) {
-//			return true;
-//		}
 		else {
 			return false;
-		}
-	
-		
+		}	
 	}
 }

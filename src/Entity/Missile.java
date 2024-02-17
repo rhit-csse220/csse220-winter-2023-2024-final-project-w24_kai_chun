@@ -23,16 +23,13 @@ public class Missile extends Entity{
 
 	public void getMissileImage() {
 		try {
-//			System.out.println("ElectricPipe");
 			image = ImageIO.read(getClass().getResourceAsStream("MarioMissile.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void draw(Graphics2D g2) {
-		
+	public void draw(Graphics2D g2) {		
 		g2.drawImage(image, x, y, this.width, this.height, null);
-
 	}
 }

@@ -19,20 +19,18 @@ public class Barrier extends Entity {
 		this.p = p;
 		this.width = p.tileSize;
 		this.height = p.tileSize * 3;
-		this.angle = angle;// (int) (Math.random()*46);
+		this.angle = angle;
 
 		getPipeImage();
 	}
 
 	public void getPipeImage() {
 		try {
-//			System.out.println("Pipe");
 			image = ImageIO.read(getClass().getResourceAsStream("MarioPipe.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
 
 	public boolean collideTop(Hero hero) {
 		Rectangle heroRectangle = new Rectangle(hero.x,hero.y,hero.width,hero.height);
@@ -57,14 +55,10 @@ public class Barrier extends Entity {
 		g2.rotate(Math.toRadians(angle), x, y);
 		g2.drawImage(image, x, y, this.width, this.height, null);
 		g2.setColor(Color.red);
-		g2.drawRect(x, y, width, height);
 		g2.setColor(Color.yellow);
 		g2.drawLine(x+5,y,x+this.width,y);
-		g2.drawLine(x+5, y+this.height,x+this.width, y+this.height);
-		
+		g2.drawLine(x+5, y+this.height,x+this.width, y+this.height);		
 		g2.setColor(Color.black);
 		g2.rotate(-Math.toRadians(angle), x, y);
-
 	}
-
 }

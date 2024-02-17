@@ -25,7 +25,6 @@ public class TrackMissile extends Missile {
 	}
 	public void getTrackMissileImage() {
 		try {
-//			System.out.println("ElectricPipe");
 			image = ImageIO.read(getClass().getResourceAsStream("TrackMissile.png"));
 		} catch (IOException e) {
 			e.printStackTrace();

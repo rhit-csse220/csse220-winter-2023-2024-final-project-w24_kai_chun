@@ -30,8 +30,6 @@ public class Coin extends Entity {
 	}
 
 	public void draw(Graphics2D g2) {
-//		g2.setColor(Color.white);
-//		g2.fillRect(x, y, p.tileSize, p.tileSize);
 		if (this.collision == false) {
 			g2.drawImage(image, x, y, p.tileSize / 2, p.tileSize / 2, null);
 		} else {
